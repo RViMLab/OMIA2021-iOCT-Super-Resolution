@@ -18,15 +18,11 @@ model.summary()
 
 def calc_vgg(path_images):
 
-    # path for where to read the images
     input_path =path_images
-    type=path_images[-7:-1]
-
-    output_path=path_images+'../vgg_features_'+type
+    output_path=path_images+'../vgg_features'
 
     vgg16_feature_list=[]
 
-    #input_path = 'C:/PhD/Registration/DATA_REG/RIDE_'+RIDE+'_REG/Reg_450_300_cube/' + TYPES_LIST[j]
     for (dirpath, dirnames,filenames) in walk(input_path):
         for i, fname in enumerate(filenames):
 
@@ -48,7 +44,6 @@ def calc_vgg(path_images):
         pickled_db_path=output_path
 
         with open(pickled_db_path, 'wb') as fp:
-            #general: vgg16_feature_list_means isntead of vgg16_feature_np
             pickle.dump(vgg16_feature_list_means, fp)
         fp.close()
 

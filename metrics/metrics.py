@@ -1,14 +1,12 @@
 from skimage.metrics import peak_signal_noise_ratio
 from skimage.metrics import structural_similarity
 import numpy as np
-#from util import util
 import os
 import cv2
 from cleanfid import fid
 from l_feat.cal_vgg import calc_vgg
 from l_feat.compare_vgg import compare
 from Global_Contrast_Factor import compute_global_contrast_factor
-
 
 
 def getPSNR(source_images,reference_images):
@@ -18,7 +16,7 @@ def getPSNR(source_images,reference_images):
     for i in range(0, num_images):
         ref_img=reference_images[i]
         src_img=source_images[i]
-        psnr_list.append(peak_signal_noise_ratio(ref_img,src_img)) #first input: true image, second input: test image
+        psnr_list.append(peak_signal_noise_ratio(ref_img,src_img))
 
     mean_PSNR=np.mean(psnr_list)
     return mean_PSNR
@@ -30,7 +28,7 @@ def getSSIM(source_images,reference_images):
     for i in range(0, num_images):
         img_1=reference_images[i]
         img_2=source_images[i]
-        ssim_list.append(structural_similarity(img_1,img_2,multichannel=True)) # order of input images does not matter (obviously)
+        ssim_list.append(structural_similarity(img_1,img_2,multichannel=True))
 
     mean_SSIM=np.mean(ssim_list)
     return mean_SSIM
@@ -40,7 +38,7 @@ def getFID(source_images,reference_images):
 
     return score
 
-def getVGG(path_source_images,path_reference_images):
+def getL_feat(path_source_images,path_reference_images):
 
     source_stats=calc_vgg(path_source_images)
     ref_stats=calc_vgg(path_reference_images)
@@ -72,29 +70,26 @@ def path_to_list(path_imgs):
 
 
 def getMetrics(path_source_images,path_reference_images):
-    # input: all inputs paths of images
-    # outuput: float numbers of every metric (6 metrics)
 
     source_images=path_to_list(path_source_images)
     reference_images=path_to_list(path_reference_images)
 
     # get PSNR
-    PSNR=getPSNR(source_images,reference_images)
-    #print(PSNR)
+    #PSNR=getPSNR(source_images,reference_images)
+
     # get SSIM
-    SSIM=getSSIM(source_images,reference_images)
-    #print(SSIM)
+    #SSIM=getSSIM(source_images,reference_images)
+
     # get VGG
-    VGG=getVGG(path_source_images,path_reference_images)
+    l_feat=getL_feat(path_source_images,path_reference_images)
 
     # get FID
     FID=getFID(path_source_images,path_reference_images)
-    #print(FID)
 
     # get GCF
     GCF=getGCF(source_images)
 
-    return PSNR, SSIM, VGG, FID, GCF, 0
+    return l_feat, FID, GCF
 
 
 

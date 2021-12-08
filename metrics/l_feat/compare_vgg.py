@@ -28,7 +28,6 @@ def compare_data_to_data(calculated_vgg_path1,calculated_vgg_path2):
     fp.close()
 
     calc_features1 = calc_features1.reshape(1, -1)
-
     calc_features2 = calc_features2.reshape(1, -1)
 
     feature_dist = spatial.distance.cdist(calc_features1, calc_features2, 'euclidean')
@@ -61,23 +60,6 @@ def compare_image_to_image(image1, image2):
     return feature_dist
 
 
-#Define if Image to Image or Dataset to Dataset
-COMPARE_IMAGE_TO_IMAGE=False
-COMPARE_DATA_TO_DATA=True
-
-# if COMPARE_DATA_TO_DATA==True
-# Define the folders containing the calculated averaged feature maps
-calculated_vgg_path1='C:\PhD\SR\SR_averaged_paper_results/vgg_features_hr_averaged_equal_hist'
-calculated_vgg_path2='C:\PhD\SR\SR_averaged_paper_results/vgg_features_snn_averaged'
-
-# if COMPARE_IMAGE_TO_IMAGE==True
-# Define the folders containing the images
-
-input_path = 'C:/PhD/SR/CYCLEGAN/results/iOCT3D/Quantitative_Data'
-Directory_ref = "/CUBE/"
-Directory_1 = "/SR_VIDEO_CycleGAN/"
-
-
 # Read VGG16 model
 model = VGG16(weights='imagenet', include_top=False)
 # redefine model to output right after the first hidden layer
@@ -88,10 +70,7 @@ model.summary()
 
 def compare(source_stats,ref_stats,image_to_image=True):
 
-
-    COMPARE_IMAGE_TO_IMAGE = image_to_image
-
-    if(COMPARE_IMAGE_TO_IMAGE):
+    if(image_to_image):
         print("Processing image to image: ")
 
         for (dirpath, dirnames, filenames) in walk(input_path+Directory_1):
@@ -106,7 +85,7 @@ def compare(source_stats,ref_stats,image_to_image=True):
                 distance = compare_image_to_image(img1, img_ref)
                 print("Distance between Image1 and Image2",distance)
 
-    elif(COMPARE_DATA_TO_DATA):
+    else:
 
         distance = compare_data_to_data(source_stats, ref_stats)
         print("VGG Distance Between Dataset 1 and Dataset 2 is: ",distance[0][0])
