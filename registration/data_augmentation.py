@@ -4,9 +4,9 @@ from distutils.util import strtobool
 import matplotlib.pyplot as plt
 import numpy as np
 from skimage import metrics
-from validate import refineBottom,refineUp,findUp
+from validate_registration import refineBottom
 from pathlib import Path
-from myplot import showManyImages
+
 
 def getMoreFrames(videoname,target_path,path_root):
 
@@ -39,11 +39,9 @@ def getMoreFrames(videoname,target_path,path_root):
 
     RPE_FIXED=[]
     ILM_FIXED=[]
-    i=0
     cntframerarr = []
     numbclosepairs = []
-    saveIMages=[]
-    pltImages=[]
+
 
     for filename in os.listdir(path_cr_fixed):
         ############################################################
@@ -54,15 +52,11 @@ def getMoreFrames(videoname,target_path,path_root):
         #############################################################
 
         close_pairs = 0
-        print(filename)
         # Define Video
         videoFilename = os.path.join(path_root, videoname)
         cap = cv2.VideoCapture(videoFilename)
-        w_frame, h_frame = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH)), int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-        fps, frames = cap.get(cv2.CAP_PROP_FPS), cap.get(cv2.CAP_PROP_FRAME_COUNT)
 
         str_valid=(text_Final_Check.readline())
-        print(str_valid)
         if (str_valid[0:4] == 'True'):
             valid= True
         elif (str_valid[0:5] == 'False'):
@@ -79,7 +73,6 @@ def getMoreFrames(videoname,target_path,path_root):
         RPE_frame=editRPETxt(RPE_str)
         ILM_frame=editRPETxt(ILM_str)
 
-        #test_frame = myDrawPoints(RPE_frame, imgReg)
 
 
         RPE_FIXED.append(RPE_frame)
@@ -87,13 +80,10 @@ def getMoreFrames(videoname,target_path,path_root):
 
         if(valid ):
             mnx = int(mnx)
-            #print("minx: ",mnx)
             mxx = int(mxx)
-            #print("maxx: ", mxx)
             mny = int(mny)
-            #print("miny: ", mny)
             mxy = int(mxy)
-            #print("maxx: ",mxy)
+
             RPE_frame = RPE_frame-mnx
             ILM_frame=ILM_frame-mnx
 
@@ -105,11 +95,6 @@ def getMoreFrames(videoname,target_path,path_root):
                     numbclosepairs.append(close_pairs)
                     break
 
-
-                # Grayscale, Resize and Crop]
-                #frame2 = cv2.resize(frame, (1024, 1024), interpolation=cv2.INTER_LINEAR)
-
-                #frame2=frame[mnx:mxx]
                 edit_frame=editVideoFrame(frame,dim,mnx,mxx,mny,mxy)
                 our_frame=edit_frame.copy()
 
@@ -118,7 +103,6 @@ def getMoreFrames(videoname,target_path,path_root):
 
                 if(maxRPEcol2==0 and minRPEcol2==0):
                     RPE_checked = np.zeros(mxy-mny)
-                    show_frame=edit_frame
                 else:
                     show_frame,RPE_checked=calcRPE(RPE_check,edit_frame)
 
@@ -126,43 +110,17 @@ def getMoreFrames(videoname,target_path,path_root):
 
                 RPE_frame=RPE_frame.astype(int)
 
-                #show_frame=myDrawPoints(RPE_frame,show_frame)
-                #show_frame = myDrawPoints(RPE_frame, show_frame)
-
-                print("frame",cntframe)
-                print("Hausdorff Distance RPE: ", h)
-                print("Close pairs", close_pairs)
-
-                # Find checked frame ILM
-                #refineUp(edit_frame, RPE_check)
-                #pltImages.append(show_frame)
-
-
-                #if(cntframe/50==1):
-                    #showManyImages(pltImages)
-
 
                 if(h<15):
-                    #cv2.imshow('frame2', show_frame)
-                    #cv2.imshow('frame', show_frame)
-                    #plt.imshow(show_frame)
-                    #plt.show()
                     exists = cntframe in cntframerarr
 
-
-                    # Find checked frame ILM:
-                    ##ILM_check, binary = findUp(edit_frame, saveIMages, RPE_check[0])
-                    ##show_frame2, ILM_checked = calcILM(ILM_check, edit_frame)
-                    ##myDrawPoints(ILM_frame, show_frame2)
-                    #cv2.imshow('frame', show_frame2)
-                    ##h_ilm = computeHausdorff(ILM_frame, ILM_checked)
                     h_ilm=5
-                    print("Hausdorff Distance ILM: ", h_ilm)
+
                     if(h_ilm<10):
 
                         if(exists==False):
                             mse_error=mse(previous_saved_img,our_frame)
-                            print("MSE",mse_error)
+
                             diff_frame=previous_saved_img-our_frame
                             plt.imshow(diff_frame,cmap='gray')
                             plt.show()
@@ -183,14 +141,11 @@ def getMoreFrames(videoname,target_path,path_root):
                     break
                 if(ret==False):
                     break
-            print("end of video")
+
             cap.release()
             cv2.destroyAllWindows()
 
 
-    print(cntframerarr)
-    print(numbclosepairs)
-    print(np.sum(numbclosepairs))
 
 def mse(imageA, imageB):
     # the 'Mean Squared Error' between the two images is the
@@ -206,8 +161,6 @@ def mse(imageA, imageB):
 def calcRPE(RPE_checked,edit_frame):
 
     x_range = RPE_checked[0]
-    print("RPE",RPE_checked[0])
-    #print("RPE_CHECKED SHAPE",RPE_checked.shape[1])
     y_range = np.arange(RPE_checked.shape[1])
 
     fit = np.polyfit(y_range, x_range, 2)
@@ -216,28 +169,6 @@ def calcRPE(RPE_checked,edit_frame):
 
     draw_x = lspace
     draw_y = np.polyval(fit, draw_x)  # evaluate the polynomial
-    #print("RPE checking", draw_y)
-    draw_points = (np.asarray([draw_x, draw_y]).T).astype(np.int32)  # needs to be int32 and transposed
-
-    cv2.polylines(edit_frame, [draw_points], False, (255, 255, 255), 1)  # args: image, points, closed, color
-
-
-    return edit_frame,draw_y
-
-
-def calcILM(RPE_checked,edit_frame):
-
-    x_range = RPE_checked[0]
-    #print("RPE_CHECKED SHAPE",RPE_checked.shape[1])
-    y_range = np.arange(RPE_checked.shape[1])
-    fit = np.polyfit(y_range, x_range, 5)
-
-    lspace = np.linspace(0,RPE_checked.shape[1], RPE_checked.shape[1])
-
-    draw_x = lspace
-
-    draw_y = np.polyval(fit, draw_x)  # evaluate the polynomial
-
     draw_points = (np.asarray([draw_x, draw_y]).T).astype(np.int32)  # needs to be int32 and transposed
 
     cv2.polylines(edit_frame, [draw_points], False, (255, 255, 255), 1)  # args: image, points, closed, color
@@ -249,13 +180,11 @@ def calcILM(RPE_checked,edit_frame):
 def computeHausdorff(RPEfixed,RPEchecked):
 
     set_ay = RPEfixed
-    print("maximum balue in coords a is:",np.amax(set_ay))
-    print("first value in coords a is:",set_ay[0])
+
     set_ax = np.arange(set_ay.shape[0])
 
     set_by = RPEchecked
-    print("maximum balue in coords b is:",np.amax(set_by))
-    print("first value in coords b is:",set_by[0])
+
 
     set_bx = np.arange(set_by.shape[0])
 
@@ -278,7 +207,6 @@ def computeHausdorff(RPEfixed,RPEchecked):
 def editRPETxt(RPE_str):
 
     split = str.split(RPE_str[1:-2])
-    #print("RPE SHAPE:",np.array(split).shape[0])
     RPE_frame=np.zeros(np.array(split).shape[0])
     for i in range(np.array(split).shape[0]):
         RPE_frame[i]=float(split[i])
@@ -286,31 +214,12 @@ def editRPETxt(RPE_str):
     return RPE_frame
 
 
-
 def editVideoFrame(frame,dim,mnx,mxx,mny,mxy):
     gray_frame = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)
     res_frame = cv2.resize(gray_frame, (512, 1024), interpolation=cv2.INTER_LINEAR)
     res_frame=res_frame[145:,:]
     res_frame = cv2.resize(res_frame, dim, interpolation=cv2.INTER_LINEAR)
-    print("dimensions of resframe",res_frame.shape)
     crop_frame=res_frame[mnx:mxx,mny:mxy]
-    print("dimensions of cropframe", crop_frame.shape)
 
     return crop_frame
 
-def myDrawPoints(pointList,Image):
-    x_range = pointList
-    # print("RPE_CHECKED SHAPE",RPE_checked.shape[1])
-    y_range = np.arange(Image.shape[1])
-
-    fit = np.polyfit(y_range, x_range, 5)
-    lspace = np.linspace(0, Image.shape[1], Image.shape[1])
-
-    draw_x = lspace
-    draw_y = np.polyval(fit, draw_x)  # evaluate the polynomial
-
-    draw_points = (np.asarray([draw_x, draw_y]).T).astype(np.int32)  # needs to be int32 and transposed
-
-    cv2.polylines(Image, [draw_points], False, (255, 0, 0), 1)  # args: image, points, closed, color
-
-    return Image

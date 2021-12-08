@@ -6,10 +6,8 @@ from collections import Counter
 import matplotlib.pyplot as plt
 from pathlib import Path
 from skimage import metrics
-from layerSegmentation import refineBottom,findUpperWhitePixel,findUp
-from registration import registration
+from layer_delineation import refineBottom,findUp
 from scipy.spatial import distance
-from myplot import showManyImages
 
 def open_files(target_path):
 

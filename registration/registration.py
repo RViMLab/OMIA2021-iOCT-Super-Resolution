@@ -2,12 +2,7 @@ import SimpleITK as sitk
 import time
 import os
 import numpy as np
-import nibabel as nib
-import numpy as np
 import cv2
-from skimage.util import compare_images
-import matplotlib.pyplot as plt
-from itertools import product
 from pathlib import Path
 
 

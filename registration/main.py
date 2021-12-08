@@ -1,8 +1,8 @@
 import numpy as np
 import os
-from registration import applyRegistration,creatCheckboards,applyExtraRegistration
-from validate import validateReg
-from augmentPairs import getMoreFrames
+from registration import applyRegistration,applyExtraRegistration
+from validate_registration import validateReg
+from data_augmentation import getMoreFrames
 
 np.random.seed(1000)
 
