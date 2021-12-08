@@ -43,6 +43,11 @@ Registration implementation files can be found in ``` registration ```.
 
 ### 5. Super Resolution using CycleGAN and Pix2Pix
 
+### 6. Results
+
+<img src="https://github.com/HarrisKomn/OMIA_SR_iOCT/LR_SR.png" width="800px"/>
+
+
 
 
 If you use this code for your research, please cite:
