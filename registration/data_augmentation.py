@@ -8,7 +8,7 @@ from validate_registration import refineBottom
 from pathlib import Path
 
 
-def getMoreFrames(videoname,target_path,path_root):
+def getMoreFrames(videoname,target_path):
 
     #Define crop_fixed folder
     path_cr_fixed=os.path.join(target_path, 'cropped_fixed')
@@ -53,7 +53,7 @@ def getMoreFrames(videoname,target_path,path_root):
 
         close_pairs = 0
         # Define Video
-        videoFilename = os.path.join(path_root, videoname)
+        videoFilename =  videoname
         cap = cv2.VideoCapture(videoFilename)
 
         str_valid=(text_Final_Check.readline())
@@ -72,8 +72,6 @@ def getMoreFrames(videoname,target_path,path_root):
         # RPE txt to RPE matrix
         RPE_frame=editRPETxt(RPE_str)
         ILM_frame=editRPETxt(ILM_str)
-
-
 
         RPE_FIXED.append(RPE_frame)
         ILM_FIXED.append(ILM_frame)

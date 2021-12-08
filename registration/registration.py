@@ -165,8 +165,7 @@ def registrationLow(fixed,moving,apply_rigid):
 
     return resultImage
 
-def applyExtraRegistration(target_path,path_extra_fixed_folder,path_moving_folder,apply_rigid,dim):
-    dim=(390,150)
+def applyExtraRegistration(target_path,path_extra_fixed_folder,path_moving_folder,apply_rigid):
 
     registrArray=[]
     oldname='000'
@@ -185,7 +184,6 @@ def applyExtraRegistration(target_path,path_extra_fixed_folder,path_moving_folde
             ### Registration using [0] as fixed
             ### and the rest as moving images
             if (np.size(registrArray) > 0):
-                print(registrArray)
                 path_fix = os.path.join(path_extra_fixed_folder, registrArray[0])
                 imgFix = cv2.imread(path_fix, 0)
                 resFix = imgFix.astype(np.float64)
@@ -197,8 +195,7 @@ def applyExtraRegistration(target_path,path_extra_fixed_folder,path_moving_folde
                 for reg_img in range(1,np.size(registrArray)):
 
                     path_mov = os.path.join(path_moving_folder, registrArray[reg_img])
-                    print(path_fix)
-                    print(path_mov)
+
                     imgMov = cv2.imread(path_mov, 0)
                     # resMov = cv2.resize(imgMov, dim, interpolation=cv2.INTER_LINEAR)
                     resMov = imgMov.astype(np.float64)
@@ -208,15 +205,7 @@ def applyExtraRegistration(target_path,path_extra_fixed_folder,path_moving_folde
                     movedNumpy = sitk.GetArrayViewFromImage(movedITK)
                     print("##########################End of Registration")
 
-                    '''error = mse(resMov,fixed)
-                    print(error)
-                    print("after registration error: ",mse(movedNumpy.astype(np.uint8),fixed))
-                    print(imgMov.dtype)
-                    print(movedNumpy.dtype)
-                    #cv2.imshow('abc',fixed.astype(np.uint8))
-                    cv2.imshow('cde', imgMov)
-                    cv2.waitKey(0)
-                    cv2.destroyAllWindows()'''
+
                     print("##########################Saving Registration Result")
                     movedImage = movedNumpy
 
@@ -228,47 +217,9 @@ def applyExtraRegistration(target_path,path_extra_fixed_folder,path_moving_folde
             # End of Registration
             ###################################
 
-
-
-
             registrArray=[]
             registrArray.append(filename_mov)
             oldname=filename_mov[0:4]
 
 
 
-        '''
-        path_mov = os.path.join(path_moving_folder, filename_mov)
-        imgMov = cv2.imread(path_mov, 0)
-        #resMov = cv2.resize(imgMov, dim, interpolation=cv2.INTER_LINEAR)
-        resMov = imgMov.astype(np.float64)
-        moving=resMov
-        
-        
-        for filename_fix in os.listdir(path_extra_fixed_folder):
-            print(filename_fix)
-            print(filename_mov)
-
-            #if(filename_mov[0:3]==filename_fix[0:3]):
-            if (filename_mov[0:1] == filename_fix[0:1]):
-
-                #Define Fixed Image
-                path_fix = os.path.join(path_extra_fixed_folder, filename_fix)
-                imgFix = cv2.imread(path_fix, 0)
-                #resFix = cv2.resize(imgFix, dim, interpolation=cv2.INTER_LINEAR)
-                resFix = imgFix.astype(np.float64)
-                fixed=resFix
-
-                # Run Registration
-                movedITK = registrationLow(fixed, moving,apply_rigid)
-                movedNumpy = sitk.GetArrayViewFromImage(movedITK)
-                print("#End of Registration")
-
-                print("Saving Registration Result")
-                movedImage = movedNumpy
-
-                #moved_name = filename_fix[0:7] + '.jpg'
-                moved_name = filename_mov[0:6] + 'moved.jpg'
-                Path(target_path + "/test_target").mkdir(parents=True, exist_ok=True)
-                path_registered = os.path.join(target_path, "test_target", moved_name)
-                cv2.imwrite(path_registered, movedImage)'''

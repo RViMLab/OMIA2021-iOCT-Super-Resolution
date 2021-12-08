@@ -2,12 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a9f97242-3db0-452b-b67f-3c329af83a4e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/registration/augmentPairs.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/registration/layerSegmentation.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/registration/data_augmentation.py" beforeDir="false" afterPath="$PROJECT_DIR$/registration/data_augmentation.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/registration/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/registration/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/registration/myplot.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/registration/registration.py" beforeDir="false" afterPath="$PROJECT_DIR$/registration/registration.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/registration/validate.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
