@@ -45,9 +45,7 @@ Registration implementation files can be found in ``` registration ```.
 
 ### 6. Results
 
-<img src="https://github.com/HarrisKomn/OMIA_SR_iOCT/LR_SR.png" width="800px"/>
-
-
+<img src="/LR_SR.png" width="50px"/>
 
 
 If you use this code for your research, please cite:
