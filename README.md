@@ -34,8 +34,10 @@ We ended up having 983 images per type (**V-iOCT**, **C-iOCT**, **C-pOCT**).
 ### 2. Image Quality Assessment (IQA)
 IQA metrics implementation files can be found in ``` metrics ```. L_feat, FID, NIQE and GCF.
 
-
 ### 3. Registration
+Registration implementation files can be found in ``` registration ```. 
+
+
 
 ### 4. Data Augmentation
 
