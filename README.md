@@ -49,7 +49,13 @@ Registration implementation files can be found in ``` registration ```.
 
 ### Quantitative Analysis
 
-<img src= "https://github.com/HarrisKomn/OMIA_SR_iOCT/LR_SR.png">
+<img src="/imgs/table_1.png">
+
+
+
+asdasdad
+
+
 
 
 
