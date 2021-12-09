@@ -26,34 +26,64 @@ with regards to their preferences.
 
 ## Methods
 
-### 1. Dataset
+### Dataset
 We used an internal dataset of intra-operative retinal surgery videos and OCT/iOCT scans from 66 patients acquired at Moorfields Eye Hospital, London, UK. 
 We ended up having 983 images per type (**V-iOCT**, **C-iOCT**, **C-pOCT**). 
 
 
-### 2. Image Quality Assessment (IQA)
-IQA metrics implementation files can be found in ``` metrics ```. L_feat, FID, NIQE and GCF.
+### Image Quality Assessment (IQA)
+IQA metrics implementation files can be found in ``` metrics ```. Run the L_feat, FID, NIQE and GCF.
 
-### 3. Registration
+### Registration
 Registration implementation files can be found in ``` registration ```. 
 
 
+### Data Augmentation
 
-### 4. Data Augmentation
+### Super Resolution using CycleGAN and Pix2Pix
 
-### 5. Super Resolution using CycleGAN and Pix2Pix
+For CycleGAN model we used the  [[Tensorflow]](https://github.com/XHUJOY/CycleGAN-tensorflow) implementation by Xiaowei Hu.
 
-## 6. Results
+For Pix2Pix we used the [[Tensorflow]](https://github.com/affinelayer/pix2pix-tensorflow) implementation by Christopher Hesse.
+
+
+## Results
 
 ### IQA
 
+Table 1 summarises IQA results. The values of the three metrics (FID, l_feat, NIQE) are lower
+for C-iOCT which indicates better perceptual quality with respect to C-pOCT and thus they can be
+used as HR images. 
+
 <img src="imgs/table_1.jpg" width="600">
 
-### Quantitative Analysis
+### Quantitative Results
+The analysis was based on the: V-iOCT (LR), SR-iOCT(CGAN) (SR using CycleGAN), SR-iOCT(Pix) (SR using Pix2Pix) and C-iOCT (HR) test sets.  FID, l_feat, NIQE  and the no-reference Global Contrast Factor (GCF)  metrics were used.
 
 <img src="imgs/table_2.jpg" width="600">
 
+### Qualitative Results
+
 <img src="imgs/LR_SR.jpg" width="600">
+
+
+## Citation
+
+If you use this code for your research, please cite our paper:
+
+ ``` 
+  @inproceedings{komninos2021intra,
+  title={Intra-operative OCT (iOCT) Image Quality Enhancement: A Super-Resolution Approach Using High Quality iOCT 3D Scans},
+  author={Komninos, Charalampos and Pissas, Theodoros and Flores, Blanca and Bloch, Edward and Vercauteren, Tom and Ourselin, S{\'e}bastien and Da Cruz, Lyndon and Bergeles, Christos},
+  booktitle={8th International Workshop on Ophthalmic Medical Image Analysis, OMIA 2021 held in conjunction with 24th International Conference on Medical Image Computing and Computer Assisted Intervention, MICCAI 2021},
+  pages={21--31},
+  year={2021},
+  organization={Springer Science and Business Media Deutschland GmbH}
+}
+  ```
+
+
+
 
 
 
