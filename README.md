@@ -33,7 +33,7 @@ We ended up having 983 images per type (**V-iOCT**, **C-iOCT**, **C-pOCT**).
 
 ### Image Quality Assessment (IQA)
 IQA metrics implementation files can be found in ``` metrics ```. For performing IQA, run the ``` metrics/main.py ``` and specify the two folder paths that contain the images you want to compare calculating 
- L_feat, FID, GCF. NIQE score can be calculated by running ``` niqe_score.m ```
+ L_feat, FID ([CleanFID](https://github.com/GaParmar/clean-fid)), GCF. NIQE score can be calculated by running ``` niqe_score.m ```
 
 
 ### Registration
