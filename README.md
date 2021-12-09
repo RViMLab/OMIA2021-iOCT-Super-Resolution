@@ -48,8 +48,10 @@ Registration implementation files can be found in ``` registration ```.
 ### IQA
 
 ### Quantitative Analysis
+asdasdasd
 
-<img src="/imgs/table_1.png">
+
+<img src="/imgs/0000.png" width="100">
 
 
 

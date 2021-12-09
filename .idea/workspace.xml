@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a9f97242-3db0-452b-b67f-3c329af83a4e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/LR_SR.PNG" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/table_1.PNG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/table_2.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/imgs/table_2.PNG" beforeDir="false" afterPath="$PROJECT_DIR$/imgs/table_2.PNG" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
