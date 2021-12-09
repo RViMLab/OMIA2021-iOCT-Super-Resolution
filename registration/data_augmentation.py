@@ -8,7 +8,7 @@ from validate_registration import refineBottom
 from pathlib import Path
 
 
-def getMoreFrames(videoname,target_path):
+def getFrames(videoname,target_path):
 
     #Define crop_fixed folder
     path_cr_fixed=os.path.join(target_path, 'cropped_fixed')

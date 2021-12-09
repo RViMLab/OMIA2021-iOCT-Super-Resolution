@@ -32,13 +32,27 @@ We ended up having 983 images per type (**V-iOCT**, **C-iOCT**, **C-pOCT**).
 
 
 ### Image Quality Assessment (IQA)
-IQA metrics implementation files can be found in ``` metrics ```. Run the L_feat, FID, NIQE and GCF.
+IQA metrics implementation files can be found in ``` metrics ```. For performing IQA, run the ``` metrics/main.py ``` and specify the two folder paths that contain the images you want to compare calculating 
+ L_feat, FID, GCF. NIQE score can be calculated by running ``` niqe_score.m ```
+
 
 ### Registration
-Registration implementation files can be found in ``` registration ```. 
+Registration implementation files can be found in ``` registration ```. Registration is performed using [SimpleElastix](https://simpleelastix.github.io/). 
+Installation is required to run the ``` registration/main.py ```.
+
+For registration:
+``` registration/main.py  -t registration -fp path_to_fixed  -mp path_to_moving -sp path_to_moved ```
+
+For validation of the registration:
+``` registration/main.py  -t validation -fp path_to_fixed -sp path_to_moved ```
+
+For data augmentation:
+``` registration/main.py  -t augmentation -sp path_to_moved -v videofile ```
+
+For registration of augmented data:
+``` registration/main.py  -t reg_augmentation -fp path_to_fixed  -mp path_to_moving -sp path_to_moved ```
 
 
-### Data Augmentation
 
 ### Super Resolution using CycleGAN and Pix2Pix
 
