@@ -41,15 +41,19 @@ Registration implementation files can be found in ``` registration ```. Registra
 Installation is required to run the ``` registration/main.py ```.
 
 For registration:
+
 ``` registration/main.py  -t registration -fp path_to_fixed  -mp path_to_moving -sp path_to_moved ```
 
 For validation of the registration:
+
 ``` registration/main.py  -t validation -fp path_to_fixed -sp path_to_moved ```
 
 For data augmentation:
+
 ``` registration/main.py  -t augmentation -sp path_to_moved -v videofile ```
 
 For registration of augmented data:
+
 ``` registration/main.py  -t reg_augmentation -fp path_to_fixed  -mp path_to_moving -sp path_to_moved ```
 
 
