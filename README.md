@@ -51,7 +51,7 @@ Registration implementation files can be found in ``` registration ```.
 asdasdasd
 
 
-<img src="/imgs/0000.png" width="100">
+<img src="imgs/table_1.jpg" width="50">
 
 
 
